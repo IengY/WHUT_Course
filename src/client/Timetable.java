@@ -13,6 +13,7 @@ import javax.swing.table.TableModel;
 
 import requests.ParseTimetable;
 import requests.TimetableCourse;
+import start.staticValue;
 
 import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
@@ -28,7 +29,10 @@ public class Timetable extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-
+	public void refresh()
+	{
+		table.setModel(new TimeTableModel(staticValue.timetableCoursesList));
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -36,26 +40,7 @@ public class Timetable extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					String json="[\r\n" + 
-							"		{\r\n" + 
-							"			\"name\": \"\\u901a\\u7528\\u5b66\\u672f\\u82f1\\u8bed\", \r\n" + 
-							"			\"id\": {\"row\": 1, \"col\": 1}, \r\n" + 
-							"			\"start_time\": 1, \"end_time\": 16, \r\n" + 
-							"			\"location\": \"\\u65b04-301\", \r\n" + 
-							"			\"teacher\": \"\\u4e07\\u5b5c\\u8001\\u5e08\",\r\n" + 
-							"			 \"isDivide\": 0\r\n" + 
-							"		},\r\n" + 
-							"		{\r\n" + 
-							"			\"name\": \"\\u901a\\u7528\\u5b66\\u672f\\u82f1\\u8bed\", \r\n" + 
-							"			\"id\": {\"row\": 1, \"col\": 1}, \r\n" + 
-							"			\"start_time\": 1, \"end_time\": 16, \r\n" + 
-							"			\"location\": \"\\u65b04-301\", \r\n" + 
-							"			\"teacher\": \"\\u4e07\\u5b5c\\u8001\\u5e08\",\r\n" + 
-							"			 \"isDivide\": 0\r\n" + 
-							"		}\r\n" + 
-							"]";
-					List<TimetableCourse>list=ParseTimetable.parseTimetable(json);
-					Timetable frame = new Timetable(list);
+					Timetable frame = new Timetable(ParseTimetable.parseDefaultTimetable());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -89,7 +74,7 @@ public class Timetable extends JFrame {
 			table.setRowHeight(50);
 		}
 		table.setModel(new TimeTableModel(list));
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+	//	table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
 		scrollPane.setViewportView(table);
 		this.setVisible(true);
 	}
@@ -116,8 +101,8 @@ class TimeTableModel implements TableModel
 		for(int i=0;i<list.size();++i)
 		{
 			TimetableCourse course=list.get(i);
-			int c=course.getC();
-			int r=course.getR();
+			int c=course.getC()-1;
+			int r=course.getR()-1;
 			vector.get(c).get(r).add(course);
 		}
 		//init end
