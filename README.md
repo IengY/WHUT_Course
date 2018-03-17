@@ -83,13 +83,13 @@ clone code & run Main.java
 对于每一门课程 采用以下格式
 ```json
 {
-	name:"课程名称",
-	id:"第几行第几列",
-	start_time:"开始时间",
-	end_time:"结束时间",
-	location:"上课地点",
-	teacher:"老师",
-	isDivide:"0不分单双周，1单周，2双周",
+	"name":"课程名称",
+	"id":"第几行第几列",
+	"start_time":"开始时间",
+	"end_time":"结束时间",
+	"location":"上课地点",
+	"teacher":"老师",
+	"isDivide":"0不分单双周，1单周，2双周",
 }
 ```
 对于整个json字符串，应该以下格式,命名为schedule.json保存于src/cache目录下
@@ -97,23 +97,23 @@ clone code & run Main.java
 {
 	[
 		{
-			name:"课程1名称",
-			id:"第几行第几列",
-			start_time:"开始时间",
-			end_time:"结束时间",
-			location:"上课地点",
-			teacher:"老师",
-			isDivide:"0不分单双周，1单周，2双周",
+			"name":"课程1名称",
+			"id":"第几行第几列",
+			"start_time":"开始时间",
+			"end_time":"结束时间",
+			"location":"上课地点",
+			"teacher":"老师",
+			"isDivide":"0不分单双周，1单周，2双周",
 		},
 		{
-			name:"课程2名称",
-			id:"第几行第几列",
-			start_time:"开始时间",
-			end_time:"结束时间",
-			location:"上课地点",
-			teacher:"老师",
-			isDivide:"0不分单双周，1单周，2双周",
-		},
+			"name":"课程1名称",
+			"id":"第几行第几列",
+			"start_time":"开始时间",
+			"end_time":"结束时间",
+			"location":"上课地点",
+			"teacher":"老师",
+			"isDivide":"0不分单双周，1单周，2双周",
+		}
 	]
 }
 ```
