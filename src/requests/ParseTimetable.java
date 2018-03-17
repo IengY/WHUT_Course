@@ -1,5 +1,11 @@
 package requests;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +13,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+
+import start.staticValue;
 
 public class ParseTimetable {
 	public static List<TimetableCourse> parseTimetable(String json)
@@ -19,6 +27,22 @@ public class ParseTimetable {
 			list.add(gson.fromJson(elem, TimetableCourse.class));
 		}
 		return list;
+		
+	}
+	public static List<TimetableCourse> parseDefaultTimetable() throws IOException
+	{
+		StringBuilder jsonBuilder=new StringBuilder();
+		File file=new File(staticValue.timetableJsonPath);
+		FileInputStream fileInputStream=new FileInputStream(file);
+		InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+		BufferedReader bufferedReader=new BufferedReader(inputStreamReader);
+		String strTemp="";
+		while((strTemp=bufferedReader.readLine())!=null)
+		{
+			jsonBuilder.append(strTemp);
+		}
+		String json=jsonBuilder.toString();
+		return parseTimetable(json);
 		
 	}
 	public static void main(String[] args) {

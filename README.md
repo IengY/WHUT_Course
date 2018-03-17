@@ -23,6 +23,8 @@ clone code & run Main.java
 * HttpClient
 
 ## 格式及一些约定
+### config
+所有的路径设置默认是在src/start/staticValue.java中设置
 ### 选课缓存
 对于选课列表的缓存，存放于src/cache下，命名为course。course目录下是各大类别的选课列表目录，对于某一类别的目录，应该提供此格式的map_file.json文件。
 ```json
@@ -97,9 +99,7 @@ clone code & run Main.java
 ```
 对于整个json字符串，应该以下格式,命名为timetable.json保存于src/cache目录下
 ```json
-{
-	"timetable":
-	[
+[
 		{
 			"name":"课程1名称",
 			"id":{
@@ -124,6 +124,5 @@ clone code & run Main.java
 			"teacher":"老师",
 			"isDivide":"0不分单双周，1单周，2双周",
 		}
-	]
-}
+]
 ```
