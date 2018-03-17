@@ -23,7 +23,8 @@ clone code & run Main.java
 * HttpClient
 
 ## 格式及一些约定
-对于选课列表的缓存，存放于src下，命名为course。course目录下是各大类别的选课列表目录，对于某一类别的目录，应该提供此格式的map_file.json文件。
+### 选课缓存
+对于选课列表的缓存，存放于src/cache下，命名为course。course目录下是各大类别的选课列表目录，对于某一类别的目录，应该提供此格式的map_file.json文件。
 ```json
 {
 	"大学物理B-大类必修已开课": "4050463130",
@@ -77,3 +78,42 @@ clone code & run Main.java
 }
 ```
 其中addclass为添加课程的url,addid参数需替换为对应的addid。  
+
+### 课表缓存
+对于每一门课程 采用以下格式
+```json
+{
+	name:"课程名称",
+	id:"第几行第几列",
+	start_time:"开始时间",
+	end_time:"结束时间",
+	location:"上课地点",
+	teacher:"老师",
+	isDivide:"0不分单双周，1单周，2双周",
+}
+```
+对于整个json字符串，应该以下格式,命名为schedule.json保存于src/cache目录下
+```json
+{
+	[
+		{
+			name:"课程1名称",
+			id:"第几行第几列",
+			start_time:"开始时间",
+			end_time:"结束时间",
+			location:"上课地点",
+			teacher:"老师",
+			isDivide:"0不分单双周，1单周，2双周",
+		},
+		{
+			name:"课程2名称",
+			id:"第几行第几列",
+			start_time:"开始时间",
+			end_time:"结束时间",
+			location:"上课地点",
+			teacher:"老师",
+			isDivide:"0不分单双周，1单周，2双周",
+		},
+	]
+}
+```
