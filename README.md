@@ -24,6 +24,7 @@ clone code & run Main.java
 
 ## 格式及一些约定
 ### 项目目录
+```
 WHUT_Course
 |
 │  README.md
@@ -76,6 +77,7 @@ WHUT_Course
     └─start
             Main.java
             staticValue.java
+```
 ### config
 所有的路径设置默认是在src/start/staticValue.java中设置
 ### 选课缓存
