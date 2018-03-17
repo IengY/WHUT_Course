@@ -86,7 +86,7 @@ clone code & run Main.java
 	"name":"课程名称",
 	"id":{
 		"row":"第几行",
-		"col"："第几列",
+		"col":"第几列",
 		},
 	"start_time":"开始时间",
 	"end_time":"结束时间",
@@ -104,7 +104,7 @@ clone code & run Main.java
 			"name":"课程1名称",
 			"id":{
 					"row":"第几行",
-					"col"："第几列",
+					"col":"第几列",
 				},
 			"start_time":"开始时间",
 			"end_time":"结束时间",
@@ -114,7 +114,10 @@ clone code & run Main.java
 		},
 		{
 			"name":"课程1名称",
-			"id":"第几行第几列",
+			"id":{
+					"row":"第几行",
+					"col":"第几列",
+				},
 			"start_time":"开始时间",
 			"end_time":"结束时间",
 			"location":"上课地点",
