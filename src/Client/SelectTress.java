@@ -24,6 +24,7 @@ import requests.CourseTypeList;
 import requests.ParseMapFile;
 import requests.SelectedCourse;
 import requests.User;
+import start.staticValue;
 
 import java.awt.CardLayout;
 import javax.swing.JScrollPane;
@@ -32,9 +33,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JTable;
 
 public class SelectTress extends JFrame {
-	String base="src\\cache";
+	//String base="src\\cache";
 	//String basePath="F:\\Workspaces\\Test\\src\\cache\\course";
-	String basePath="src\\cache\\course";
+	//String basePath="src\\cache\\course";
 	//public static User user;
 	private List<SelectedCourse> selectedList;
 	private JPanel contentPane;
@@ -96,7 +97,7 @@ public class SelectTress extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, "name_512061964185745");
-		DefaultMutableTreeNode node = traverseFolder(basePath);
+		DefaultMutableTreeNode node = traverseFolder(staticValue.selectCourseBasePath);
 		DefaultTreeModel defaultTreeModel = new DefaultTreeModel(node);
 		JTree tree = new JTree(defaultTreeModel);
 		tree.addMouseListener(new MouseListener() {
@@ -136,7 +137,7 @@ public class SelectTress extends JFrame {
 		            DefaultMutableTreeNode model=(DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 		            if(model.isLeaf()==true)
 					{
-						String str=base;
+						String str=staticValue.basePath;
 						for(int i=0;i<selPath.getPathCount()-1;++i)
 						{
 							str+="\\"+selPath.getPath()[i];
