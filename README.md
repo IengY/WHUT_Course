@@ -23,6 +23,59 @@ clone code & run Main.java
 * HttpClient
 
 ## 格式及一些约定
+### 项目目录
+WHUT_Course
+|
+│  README.md
+│
+└─src
+    ├─cache
+    │  │  timetable.json
+    │  │
+    │  └─course
+    │      ├─专业选课
+    │      │      4210004110.json
+    │      │      4220003110.json
+    │      │      map_file.json
+    │      │
+    │      ├─个性课程选课
+    │      │      5160003990.json
+    │      │      5160006990.json
+    │      │      map_file.json
+    │      │
+    │      ├─英语体育课选课
+    │      │      4210112160.json
+    │      │      4210114160.json
+    │      │      map_file.json
+    │      │
+    │      └─补修课选课
+    │              4120261140.json
+    │              4210003110.json
+    │              map_file.json
+    │
+    ├─client
+    │      alipay.png
+    │      AlipayLogin.java
+    │      SelectedCourseList.java
+    │      SelectTable.java
+    │      SelectTress.java
+    │      Timetable.java
+    │
+    ├─requests
+    │      AddCourseClass.java
+    │      Course.java
+    │      CourseTypeList.java
+    │      ParseMapFile.java
+    │      ParseTimetable.java
+    │      Requests.java
+    │      SelectedCourse.java
+    │      SSOResponse.java
+    │      TimetableCourse.java
+    │      User.java
+    │
+    └─start
+            Main.java
+            staticValue.java
 ### config
 所有的路径设置默认是在src/start/staticValue.java中设置
 ### 选课缓存
