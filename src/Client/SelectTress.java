@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -35,7 +35,7 @@ public class SelectTress extends JFrame {
 	String base="src\\cache";
 	//String basePath="F:\\Workspaces\\Test\\src\\cache\\course";
 	String basePath="src\\cache\\course";
-	public static User user;
+	//public static User user;
 	private List<SelectedCourse> selectedList;
 	private JPanel contentPane;
 
@@ -85,8 +85,7 @@ public class SelectTress extends JFrame {
 	 * Create the frame.
 	 * @throws Throwable 
 	 */
-	public SelectTress(User user,List<SelectedCourse> list) throws Throwable {
-		this.user=user;
+	public SelectTress(List<SelectedCourse> list) throws Throwable {
 		this.selectedList=list;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -145,7 +144,7 @@ public class SelectTress extends JFrame {
 						str+="\\"+((CourseTypeList)model.getUserObject()).key+".json";
 						try {
 							AddCourseClass addCourseClass=AddCourseClass.ParseCourseClass(str);
-							new SelectTable(addCourseClass.classes,user,addCourseClass.addclass,selectedList);
+							new SelectTable(addCourseClass.classes,addCourseClass.addclass,selectedList);
 						} catch (Throwable e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

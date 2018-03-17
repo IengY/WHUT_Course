@@ -1,8 +1,4 @@
-package Client;
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.util.ArrayList;
+package client;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,12 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
-
 import org.apache.http.client.ClientProtocolException;
-
 import requests.Course;
 import requests.Requests;
 import requests.SelectedCourse;
+import requests.User;
+import start.staticValue;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -45,7 +41,8 @@ public class SelectedCourseList extends JFrame {
 	public SelectedCourseList(List<SelectedCourse>list) throws ClientProtocolException, IOException {
 		this.selectedList=list;
 		thread =new Thread(requests);
-		requests = new Requests(SelectTress.user, selectedList);
+		User user = staticValue.user;
+		requests = new Requests(user,selectedList);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 494, 353);
 		contentPane = new JPanel();
@@ -86,6 +83,7 @@ public class SelectedCourseList extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(isStrat==false)
 				{
+					System.out.println(user.getUsername()+"\n"+user.getPassword());
 					startButton.setEnabled(false);
 					pauseButton.setEnabled(true);
 					deleteButton.setEnabled(false);

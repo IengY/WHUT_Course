@@ -28,7 +28,6 @@ public class Requests implements Runnable
 	public  boolean loop=false;
 	private String username=null;
 	private String password=null;
-	private int loopCount=0;
 	private SSOResponse ssoResponse=new SSOResponse();
 	public static String loginUrl="http://sso.jwc.whut.edu.cn/Certification/login.do";
 	private  CookieStore cookieStore = new BasicCookieStore();
@@ -153,7 +152,6 @@ public class Requests implements Runnable
 			{
 					HttpGet httpAdd=new HttpGet(addUrl);
 					httpAdd.setHeader("user-Agent",UA);
-					loopCount++;
 					CloseableHttpResponse response=httpClient.execute(httpAdd);
 					if(response.getStatusLine().getStatusCode()==200)
 					{
@@ -170,6 +168,10 @@ public class Requests implements Runnable
 						System.out.println(ssoResponse.message);
 						list.get(i).message=ssoResponse.message;
 						list.get(i).loop++;
+						if(ssoResponse.message=="µÇÂ¼³¬Ê±£¬ÇëÖØÐÂµÇÂ¼£¡")
+						{
+							reInit();
+						}
 					}
 			}catch (Exception e) {
 				e.printStackTrace();

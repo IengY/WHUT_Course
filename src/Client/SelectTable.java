@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 import java.awt.EventQueue;
 import java.awt.event.MouseEvent;
@@ -29,13 +29,11 @@ public class SelectTable extends JFrame {
 	String baseAddUrl;
 	private JPanel contentPane;
 	private JTable table;
-	public static User user;
 	ArrayList<Course>CourseList;
 	/**
 	 * Create the frame.
 	 */
-	public SelectTable(ArrayList<Course>list,User user,String url,List<SelectedCourse>selectedList) {
-		this.user=user;
+	public SelectTable(ArrayList<Course>list,String url,List<SelectedCourse>selectedList) {
 		this.baseAddUrl=url;
 		this.CourseList=list;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -96,16 +94,6 @@ public class SelectTable extends JFrame {
 					selectedCourse.addUrl=addUrl;
 					selectedList.add(selectedCourse);
 					SelectedCourseList.refresh();
-					//System.out.println(addUrl);
-					/*
-					Requests requests= new Requests(user);
-					requests.setLoop(true);
-					requests.setConfig(addUrl);
-					Thread thread = new Thread(requests);
-					thread.start();
-					*/
-				//	MessageDialog messageDialog=new MessageDialog(requests);
-				//	SelectTable.this.dispose();
 				}
 			}
 		});

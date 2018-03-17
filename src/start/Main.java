@@ -1,3 +1,4 @@
+package start;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -5,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Client.AlipayLogin;
-import Client.SelectTress;
-import Client.SelectedCourseList;
+import client.AlipayLogin;
+import client.SelectTress;
+import client.SelectedCourseList;
 import requests.SelectedCourse;
 import requests.User;
 
@@ -58,9 +59,10 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				User user= new User(Main.this.usernameText.getText(), new String(Main.this.passwordField.getPassword()));
 				//AddCourse addCourse = new AddCourse(user);
-				List<SelectedCourse>list = new ArrayList();
+				staticValue.user=user;
+				List<SelectedCourse>list = new ArrayList<SelectedCourse>();
 				try {
-					new SelectTress(user,list);
+					new SelectTress(list);
 					new SelectedCourseList(list);
 				} catch (Throwable e1) {
 					// TODO Auto-generated catch block
