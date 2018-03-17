@@ -32,8 +32,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JTable;
 
 public class SelectTress extends JFrame {
-	String base="src";
-	String basePath="F:\\Workspaces\\Test\\src\\course";
+	String base="src\\cache";
+	//String basePath="F:\\Workspaces\\Test\\src\\cache\\course";
+	String basePath="src\\cache\\course";
 	public static User user;
 	private List<SelectedCourse> selectedList;
 	private JPanel contentPane;

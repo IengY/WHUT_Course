@@ -43,8 +43,8 @@ public class Requests implements Runnable
 	public void reInit() throws ClientProtocolException, IOException
 	{
 		String type="xs";
-		HttpHost proxy = new HttpHost("localhost",8888);
-		RequestConfig config=RequestConfig.custom().setProxy(proxy).setConnectTimeout(10000).setSocketTimeout(15000).build();
+		//HttpHost proxy = new HttpHost("localhost",8888);
+		RequestConfig config=RequestConfig.custom().setConnectTimeout(10000).setSocketTimeout(15000).build();
 		CloseableHttpClient httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).setDefaultRequestConfig(config).build();
 		HttpPost httpPost=new HttpPost(loginUrl);
 		httpPost.setHeader("user-Agent",UA);
@@ -89,8 +89,8 @@ public class Requests implements Runnable
 		this.username=username;
 		this.password=password;
 		String type="xs";
-		HttpHost proxy = new HttpHost("localhost",8888);
-		RequestConfig config=RequestConfig.custom().setProxy(proxy).setConnectTimeout(10000).setSocketTimeout(15000).build();
+		//HttpHost proxy = new HttpHost("localhost",8888);
+		RequestConfig config=RequestConfig.custom().setConnectTimeout(10000).setSocketTimeout(15000).build();
 		CloseableHttpClient httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).setDefaultRequestConfig(config).build();
 		HttpPost httpPost=new HttpPost(loginUrl);
 		httpPost.setHeader("user-Agent",UA);
@@ -141,9 +141,9 @@ public class Requests implements Runnable
 	 ***/
 	private void addCourse() throws InterruptedException
 	{
-		HttpHost proxy = new HttpHost("localhost",8888);
+		//HttpHost proxy = new HttpHost("localhost",8888);
 		Thread.sleep(sleepTime);
-		RequestConfig config=RequestConfig.custom().setProxy(proxy).setConnectTimeout(10000).setSocketTimeout(15000).build();
+		RequestConfig config=RequestConfig.custom().setConnectTimeout(10000).setSocketTimeout(15000).build();
 		CloseableHttpClient httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).setDefaultRequestConfig(config).build();
 		for(int i=0;i<list.size();++i)
 		{
