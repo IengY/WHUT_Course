@@ -10,4 +10,5 @@ public class staticValue {
 	public static String basePath="src\\cache";
 	public static String selectCourseBasePath="src\\cache\\course";
 	public static String timetableJsonPath=basePath+"\\timetable.json";
+	public static String dataBasePath="src\\database\\Course.db";
 }
