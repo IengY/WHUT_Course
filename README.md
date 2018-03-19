@@ -33,8 +33,9 @@ data: {
   "class_type": "",
 }
 ```
+
 |参数|含义|类型|
-|-|-|
+|-|-|-|
 |userName|学号|String|
 |password|教务处密码|String|
 |class_type|选课类型|String|
