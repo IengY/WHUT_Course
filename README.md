@@ -10,6 +10,11 @@ clone code & run Main.java
 * 利用本地缓存解析选课列表
 * 利用选课列表自动抢课及捡漏
 
+## 正在实现的功能
+
+* 利用SQLite实现信息存储
+* 排课及同时间课程替换功能
+
 ## 考虑添加
 
 * 从教务处拉取选课列表
@@ -109,6 +114,46 @@ WHUT_Course
 ```
 ### config
 所有的路径设置默认是在src/start/staticValue.java中设置
+
+### database
+数据库采用SQLite，数据库文件为Course.db
+|名称|含义|
+|-|-|
+|Course|选课列表数据库|
+
+#### Course
+|表名称|含义|
+|-|-|
+|bxkxk|必修课选课信息|
+|cxkxk|重修课选课信息|
+|gxkxk|公选课选课信息|
+|gxxk|个性课选课信息|
+|tqxk|提前选课选课信息|
+|yytykxk|英语体育课选课信息|
+|zykxk|专业课选课信息|
+
+对于这些表均含有相同的表结构  
+```sql
+CREATE TABLE "zykxk" (
+"课程名称"  TEXT NOT NULL,
+"上课老师"  TEXT NOT NULL,
+"上课时间"  TEXT NOT NULL,
+"上课地点"  TEXT NOT NULL,
+"容量"  INTEGER,
+"选上"  INTEGER,
+"本轮已选"  INTEGER,
+"选课方式"  TEXT,
+"备注"  TEXT,
+"学分"  INTEGER NOT NULL,
+"双语等级"  TEXT,
+"add_id"  TEXT NOT NULL,
+"addclass"  TEXT NOT NULL,
+PRIMARY KEY ("add_id" ASC)
+);
+```
+
+
+<del>
 ### 选课缓存
 对于选课列表的缓存，存放于src/cache下，命名为course。course目录下是各大类别的选课列表目录，对于某一类别的目录，应该提供此格式的map_file.json文件。
 ```json
@@ -210,3 +255,4 @@ WHUT_Course
 		}
 ]
 ```
+</del>
