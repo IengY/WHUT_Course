@@ -22,6 +22,32 @@ clone code & run Main.java
 * Gson
 * HttpClient
 
+## API
+### 选课列表
+URL:http：//119.23.234.110:80/get_classes
+method:POST
+data: {
+  "userName":,
+  "password":,
+  "class_type": "",
+}
+|参数|含义|类型|
+|-|-|
+|userName|学号|String|
+|password|教务处密码|String|
+|class_type|选课类型|String|
+
+|class_type|mean|
+|-|-|
+|zykxk|专业课选课信息|
+|gxkxk|公选课选课信息|
+|cxkxk|重修课选课信息|
+|gxxk|个性课选课信息|
+|bxkxk|补修课选课信息|
+|tqxk|提前选课|
+|yytykxk|英语体育课选课信息|
+
+
 ## 格式及一些约定
 ### 项目目录
 ```
