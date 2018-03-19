@@ -24,13 +24,15 @@ clone code & run Main.java
 
 ## API
 ### 选课列表
-URL:http：//119.23.234.110:80/get_classes
-method:POST
+URL:http：//119.23.234.110:80/get_classes  
+method:POST  
+```json
 data: {
   "userName":,
   "password":,
   "class_type": "",
 }
+```
 |参数|含义|类型|
 |-|-|
 |userName|学号|String|
