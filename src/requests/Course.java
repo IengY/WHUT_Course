@@ -15,6 +15,7 @@ public class Course{
 	public String ±¸×¢;
 	public String Ë«ÓïµÈ¼¶;
 	public String add_id;
+	public String addclass;
 	public static int getC()
 	{
 		return 13;

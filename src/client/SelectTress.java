@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -24,6 +26,7 @@ import requests.CourseTypeList;
 import requests.ParseMapFile;
 import requests.SelectedCourse;
 import requests.User;
+import sqliteDatabase.CourseSQLiteJDBC;
 import start.staticValue;
 
 import java.awt.CardLayout;
@@ -33,53 +36,28 @@ import javax.swing.BoxLayout;
 import javax.swing.JTable;
 
 public class SelectTress extends JFrame {
-	//String base="src\\cache";
-	//String basePath="F:\\Workspaces\\Test\\src\\cache\\course";
-	//String basePath="src\\cache\\course";
-	//public static User user;
 	private List<SelectedCourse> selectedList;
 	private JPanel contentPane;
-
+	
 	/**
 	 * Launch the application.
+	 * @throws SQLException 
 	 */
-	public static DefaultMutableTreeNode traverseFolder(String path) throws IOException
+	public static DefaultMutableTreeNode traverseFolder(String table) throws IOException, SQLException
 	{
-		DefaultMutableTreeNode retNode=new DefaultMutableTreeNode(new File(path).getName());
-		File file = new File(path);
-		if(file.exists())
+		DefaultMutableTreeNode retNode=new DefaultMutableTreeNode(staticValue.getTableName(table));
+		List<String>CourseList=CourseSQLiteJDBC.getCourseList(table);
+		for(String course:CourseList)
 		{
-			File[] files = file.listFiles();
-			if(files.length==0)
-			{
-				if(file.isDirectory())
-				{
-					DefaultMutableTreeNode dn = new DefaultMutableTreeNode(file.getName(),false);
-					return dn;
-				}
-			}else
-			{
-				for(File file2 :files)
-				{
-					if(file2.isDirectory()==true)
-					{
-						DefaultMutableTreeNode file2Node = new DefaultMutableTreeNode(file2.getName());
-						String mapFile=file2.getAbsolutePath();
-						ParseMapFile parseMapFile =new ParseMapFile(mapFile);
-						List<CourseTypeList>list=parseMapFile.getList();
-						for(CourseTypeList course : list)
-						{
-							DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(course);
-							file2Node.add(tempNode);
-						}
-						retNode.add(file2Node);
-					}
-				}
-			}
+			DefaultMutableTreeNode defaultMutableTreeNode = new DefaultMutableTreeNode(course);
+			retNode.add(defaultMutableTreeNode);
 		}
 		return retNode;
 	}
-	
+	public static DefaultMutableTreeNode createRootNode()
+	{
+		return null;
+	}
 	
 	
 	/**
@@ -97,8 +75,8 @@ public class SelectTress extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, "name_512061964185745");
-		DefaultMutableTreeNode node = traverseFolder(staticValue.selectCourseBasePath);
-		DefaultTreeModel defaultTreeModel = new DefaultTreeModel(node);
+		//DefaultMutableTreeNode node = traverseFolder(staticValue.selectCourseBasePath);
+		//DefaultTreeModel defaultTreeModel = new DefaultTreeModel(node);
 		JTree tree = new JTree(defaultTreeModel);
 		tree.addMouseListener(new MouseListener() {
 			@Override
