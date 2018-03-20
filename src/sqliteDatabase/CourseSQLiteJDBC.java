@@ -2,6 +2,7 @@ package sqliteDatabase;
 
 import java.beans.Statement;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,17 +59,30 @@ public class CourseSQLiteJDBC {
 	{
 		String sql="SELECT DISTINCT 课程名称 FROM "+table;
 		List<String>courseList = new ArrayList();
+		System.out.println("DB:getCourseList table:"+table);
 		PreparedStatement stmt=courseConnection.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next())
 		{
-			courseList.add(rs.getString("课程名称")+rs.getString(""));
+			courseList.add(rs.getString("课程名称"));
 		}
 		return courseList;
 	}
+	public static List<String> getTypeList() throws SQLException
+	{
+		List<String>tableList=new ArrayList();
+		DatabaseMetaData md = courseConnection.getMetaData();
+		ResultSet rs = md.getTables(null, null, "%", null);
+		while(rs.next())
+		{
+			tableList.add(rs.getString(3));
+			System.out.println(rs.getString(3));
+		}
+		return tableList;
+	}
 	public static List<Course> getCourse(String courseName,String table) throws SQLException
 	{
-		String sql="SELECT * FROM "+table+" WHERE 课程名称="+courseName;
+		String sql="SELECT * FROM "+table+" WHERE \"课程名称\" = \""+courseName+"\"";
 		List<Course>courseList=new ArrayList();
 		PreparedStatement preparedStatement = courseConnection.prepareStatement(sql);
 		ResultSet rs=preparedStatement.executeQuery();
@@ -93,16 +107,7 @@ public class CourseSQLiteJDBC {
 		return courseList;
 	}
 	public static void main(String[] args) throws SQLException {
-		// TODO Auto-generated method stub
-		/*
-		try {
-			AddCourseClass addCourseClass =AddCourseClass.ParseCourseClass("F:\\Workspaces\\WHUT_Course\\src\\cache\\course\\专业选课\\4120265140.json");
-			insert(addCourseClass.classes, "zykxk");
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		getCourseList("zykxk");
+		//getTypeList();
 	}
 
 }

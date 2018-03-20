@@ -1,4 +1,5 @@
 package client;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,8 +39,8 @@ public class SelectedCourseList extends JFrame {
 		table.setModel(new SelectedCourseTableModel(selectedList));
 		table.repaint();
 	}
-	public SelectedCourseList(List<SelectedCourse>list) throws ClientProtocolException, IOException {
-		this.selectedList=list;
+	public SelectedCourseList() throws ClientProtocolException, IOException {
+		this.selectedList=staticValue.selectedList;
 		thread =new Thread(requests);
 		User user = staticValue.user;
 		requests = new Requests(user,selectedList);
@@ -62,7 +63,7 @@ public class SelectedCourseList extends JFrame {
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selectedID=table.getSelectedRow();
-				list.remove(selectedID);
+				selectedList.remove(selectedID);
 				SelectedCourseList.refresh();
 			}
 		});

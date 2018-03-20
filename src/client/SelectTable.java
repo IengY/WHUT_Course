@@ -19,31 +19,32 @@ import requests.Course;
 import requests.Requests;
 import requests.SelectedCourse;
 import requests.User;
+import start.staticValue;
 
 import java.awt.CardLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
 
 public class SelectTable extends JFrame {
-	String baseAddUrl;
+	//String baseAddUrl;
 	private JPanel contentPane;
 	private JTable table;
-	ArrayList<Course>CourseList;
+	List<Course> CourseList;
 	/**
 	 * Create the frame.
 	 */
-	public SelectTable(ArrayList<Course>list,String url,List<SelectedCourse>selectedList) {
-		this.baseAddUrl=url;
+	public SelectTable(List<Course> list) {
 		this.CourseList=list;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 748, 533);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(5, 5, 722, 487);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -86,13 +87,13 @@ public class SelectTable extends JFrame {
 					}
 					int selected=table.getSelectedRow();
 					String addid=(String) table.getValueAt(selected, 12);
-					String addUrl=baseAddUrl.replace("{suid_obj}", addid);
+				//	String addUrl=baseAddUrl.replace("{suid_obj}", addid);
 					CourseTableModel courseModel=(CourseTableModel) table.getModel();
 					Course course=courseModel.list.get(selected);
 					SelectedCourse selectedCourse =new SelectedCourse();
 					selectedCourse.course=course;
-					selectedCourse.addUrl=addUrl;
-					selectedList.add(selectedCourse);
+					selectedCourse.addUrl=addid;
+					staticValue.selectedList.add(selectedCourse);
 					SelectedCourseList.refresh();
 				}
 			}
@@ -105,8 +106,8 @@ public class SelectTable extends JFrame {
 }
 class CourseTableModel implements TableModel
 {
-	public ArrayList<Course>list;
-	public CourseTableModel(ArrayList<Course>arrayList) {
+	public List<Course>list;
+	public CourseTableModel(List<Course>arrayList) {
 		// TODO Auto-generated constructor stub
 		this.list=arrayList;
 	}

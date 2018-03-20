@@ -60,10 +60,9 @@ public class Main extends JFrame {
 				User user= new User(Main.this.usernameText.getText(), new String(Main.this.passwordField.getPassword()));
 				//AddCourse addCourse = new AddCourse(user);
 				staticValue.user=user;
-				List<SelectedCourse>list = new ArrayList<SelectedCourse>();
 				try {
-					new SelectTress(list);
-					new SelectedCourseList(list);
+					new SelectTress();
+					new SelectedCourseList();
 				} catch (Throwable e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

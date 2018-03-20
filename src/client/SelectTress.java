@@ -36,7 +36,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JTable;
 
 public class SelectTress extends JFrame {
-	private List<SelectedCourse> selectedList;
 	private JPanel contentPane;
 	
 	/**
@@ -49,14 +48,21 @@ public class SelectTress extends JFrame {
 		List<String>CourseList=CourseSQLiteJDBC.getCourseList(table);
 		for(String course:CourseList)
 		{
-			DefaultMutableTreeNode defaultMutableTreeNode = new DefaultMutableTreeNode(course);
+			DefaultMutableTreeNode defaultMutableTreeNode = new DefaultMutableTreeNode(course,false);
 			retNode.add(defaultMutableTreeNode);
 		}
 		return retNode;
 	}
-	public static DefaultMutableTreeNode createRootNode()
+	public static DefaultMutableTreeNode createRootNode() throws SQLException, IOException
 	{
-		return null;
+		DefaultMutableTreeNode root=new DefaultMutableTreeNode("Ñ¡¿ÎÐÅÏ¢");
+		List<String>tableList=CourseSQLiteJDBC.getTypeList();
+		for(String node:tableList)
+		{
+			DefaultMutableTreeNode oneNode=traverseFolder(node);
+			root.add(oneNode);
+		}
+		return root;
 	}
 	
 	
@@ -64,8 +70,7 @@ public class SelectTress extends JFrame {
 	 * Create the frame.
 	 * @throws Throwable 
 	 */
-	public SelectTress(List<SelectedCourse> list) throws Throwable {
-		this.selectedList=list;
+	public SelectTress() throws Throwable {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -75,8 +80,8 @@ public class SelectTress extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, "name_512061964185745");
-		//DefaultMutableTreeNode node = traverseFolder(staticValue.selectCourseBasePath);
-		//DefaultTreeModel defaultTreeModel = new DefaultTreeModel(node);
+		DefaultMutableTreeNode node = createRootNode();
+		DefaultTreeModel defaultTreeModel = new DefaultTreeModel(node);
 		JTree tree = new JTree(defaultTreeModel);
 		tree.addMouseListener(new MouseListener() {
 			@Override
@@ -115,23 +120,16 @@ public class SelectTress extends JFrame {
 		            DefaultMutableTreeNode model=(DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 		            if(model.isLeaf()==true)
 					{
-						String str=staticValue.basePath;
-						for(int i=0;i<selPath.getPathCount()-1;++i)
-						{
-							str+="\\"+selPath.getPath()[i];
-						}
-						str+="\\"+((CourseTypeList)model.getUserObject()).key+".json";
+		            	String table=staticValue.getTable(selPath.getPath()[1].toString());
+		            	String courseName=selPath.getPath()[2].toString();
 						try {
-							AddCourseClass addCourseClass=AddCourseClass.ParseCourseClass(str);
-							new SelectTable(addCourseClass.classes,addCourseClass.addclass,selectedList);
-						} catch (Throwable e) {
+							new SelectTable(CourseSQLiteJDBC.getCourse(courseName, table));
+						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						//SelectTress.this.dispose();
 					}
 				}
-				
 			}
 		});
 		scrollPane.setViewportView(tree);

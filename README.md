@@ -153,7 +153,6 @@ PRIMARY KEY ("add_id" ASC)
 ```
 
 
-<del>
 ### 选课缓存
 对于选课列表的缓存，存放于src/cache下，命名为course。course目录下是各大类别的选课列表目录，对于某一类别的目录，应该提供此格式的map_file.json文件。
 ```json
@@ -210,6 +209,8 @@ PRIMARY KEY ("add_id" ASC)
 ```
 其中addclass为添加课程的url,addid参数需替换为对应的addid。  
 
+
+## 废弃待重构的内容
 ### 课表缓存
 对于每一门课程 采用以下格式
 ```json
@@ -255,4 +256,3 @@ PRIMARY KEY ("add_id" ASC)
 		}
 ]
 ```
-</del>
