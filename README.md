@@ -120,7 +120,7 @@ WHUT_Course
 |名称|含义|
 |-|-|
 |Course|选课列表数据库|
-
+|Timetable|个人课表数据库|
 #### Course
 |表名称|含义|
 |-|-|
