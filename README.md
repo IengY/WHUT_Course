@@ -31,8 +31,9 @@ clone code & run Main.java
 API部分依赖于[xkxx](https://github.com/Maymomo/xkxt)项目,将该项目部署到服务器上提供API接口，相应的配置在src/start/staticValue.java中
 
 ### 选课列表
-URL:http：//119.23.234.110:80/get_classes
+URL:http://119.23.234.110:80/get_classes  
 method:POST  
+
 ```json
 data: {
   "userName":,
