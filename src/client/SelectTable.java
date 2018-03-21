@@ -14,7 +14,7 @@ import javax.swing.event.AncestorListener;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-import requests.AddCourseClass;
+import requests.CourseList;
 import requests.Course;
 import requests.Requests;
 import requests.SelectedCourse;
@@ -150,7 +150,7 @@ class CourseTableModel implements TableModel
 		case 9:return "学分";
 		case 10:return "备注";
 		case 11:return "双语等级";
-		case 12:return "addid";
+		case 12:return "addUrl";
 		}
 		return null;
 	}
@@ -179,7 +179,7 @@ class CourseTableModel implements TableModel
 			case 9:return course.学分;
 			case 10:return course.备注;
 			case 11:return course.双语等级;
-			case 12:return course.add_id;
+			case 12:return course.addAction;
 		}
 		return "NULL";
 	}

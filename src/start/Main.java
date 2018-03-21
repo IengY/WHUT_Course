@@ -10,16 +10,21 @@ import client.AlipayLogin;
 import client.SelectTress;
 import client.SelectedCourseList;
 import requests.SelectedCourse;
+import requests.ServerRequests;
 import requests.User;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JComboBox;
 
 public class Main extends JFrame {
 
@@ -48,18 +53,40 @@ public class Main extends JFrame {
 	 */
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 375, 230);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		String[] list={"使用本地数据","从教务处获取数据","从服务器获取缓存数据"};
+		JComboBox comboBox = new JComboBox(list);
+		comboBox.setBounds(57, 148, 190, 25);
 		
-		JButton loginButton = new JButton("\u767B\u9646");
+		contentPane.add(comboBox);
+		JButton loginButton = new JButton("\u4FDD\u5B58");
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				User user= new User(Main.this.usernameText.getText(), new String(Main.this.passwordField.getPassword()));
 				//AddCourse addCourse = new AddCourse(user);
 				staticValue.user=user;
+				int index=comboBox.getSelectedIndex();
+				switch(index)
+				{
+				case 0:break;
+				case 1:try {
+						ServerRequests.getJwcCourseToDB();
+					} catch (IOException | SQLException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}break;
+				case 2:try {
+						ServerRequests.getCacheCourseToDB();
+					} catch (IOException | SQLException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}break;
+				}
+
 				try {
 					new SelectTress();
 					new SelectedCourseList();
@@ -70,41 +97,28 @@ public class Main extends JFrame {
 				Main.this.dispose();
 			}
 		});
-		loginButton.setBounds(33, 163, 76, 46);
+		loginButton.setBounds(257, 24, 86, 149);
 		contentPane.add(loginButton);
 		
-		JButton signButton = new JButton("\u6CE8\u518C");
-		signButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		signButton.setBounds(172, 163, 84, 46);
-		contentPane.add(signButton);
-		
-		JButton alipayLoginButton = new JButton("\u652F\u4ED8\u5B9D\u767B\u9646");
-		alipayLoginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AlipayLogin alipayLogin= new AlipayLogin();
-			}
-		});
-		alipayLoginButton.setBounds(306, 163, 108, 46);
-		contentPane.add(alipayLoginButton);
-		
 		JLabel lblNewLabel = new JLabel("\u8D26\u53F7");
-		lblNewLabel.setBounds(66, 34, 84, 27);
+		lblNewLabel.setBounds(10, 24, 37, 27);
 		contentPane.add(lblNewLabel);
 		
 		JLabel label = new JLabel("\u5BC6\u7801");
-		label.setBounds(66, 99, 84, 27);
+		label.setBounds(10, 89, 37, 27);
 		contentPane.add(label);
 		
 		usernameText = new JTextField();
-		usernameText.setBounds(160, 37, 190, 27);
+		usernameText.setBounds(57, 24, 190, 27);
 		contentPane.add(usernameText);
 		usernameText.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(160, 102, 190, 27);
+		passwordField.setBounds(57, 89, 190, 27);
 		contentPane.add(passwordField);
+		
+		JLabel label_1 = new JLabel("\u6765\u6E90");
+		label_1.setBounds(10, 146, 37, 27);
+		contentPane.add(label_1);
 	}
 }

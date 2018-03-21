@@ -1,6 +1,9 @@
 package start;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import client.*;
 import requests.SelectedCourse;
@@ -14,6 +17,15 @@ public class staticValue {
 	public static String timetableJsonPath=basePath+"\\timetable.json";
 	public static String dataBasePath="src\\database\\Course.db";
 	public static List<SelectedCourse>selectedList=new ArrayList();
+	
+	//Server
+	public static String BASE_API="http://119.23.234.110:80//";
+	public static String POST_GETCOURSE_API=BASE_API+"get_classes";
+	public static String[] class_type= {
+			"zykxk","gxkxk","cxkxk","gxxk","bxkxk","tqxk","yytykxk"
+	};
+	
+	//end server
 	public static String getTableName(String table)
 	{
 		switch(table)

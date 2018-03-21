@@ -20,10 +20,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import requests.AddCourseClass;
+import requests.CourseList;
 import requests.Course;
-import requests.CourseTypeList;
-import requests.ParseMapFile;
 import requests.SelectedCourse;
 import requests.User;
 import sqliteDatabase.CourseSQLiteJDBC;
@@ -44,6 +42,7 @@ public class SelectTress extends JFrame {
 	 */
 	public static DefaultMutableTreeNode traverseFolder(String table) throws IOException, SQLException
 	{
+		
 		DefaultMutableTreeNode retNode=new DefaultMutableTreeNode(staticValue.getTableName(table));
 		List<String>CourseList=CourseSQLiteJDBC.getCourseList(table);
 		for(String course:CourseList)

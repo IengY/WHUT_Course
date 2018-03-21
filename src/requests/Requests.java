@@ -146,7 +146,7 @@ public class Requests implements Runnable
 		CloseableHttpClient httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).setDefaultRequestConfig(config).build();
 		for(int i=0;i<list.size();++i)
 		{
-			System.out.println(list.get(i).course.¿Î³ÌÃû³Æ);
+		//	System.out.println(list.get(i).course.¿Î³ÌÃû³Æ);
 			String addUrl="http://202.114.90.180/Course/"+list.get(i).addUrl;
 			try 
 			{
@@ -168,8 +168,9 @@ public class Requests implements Runnable
 						System.out.println(ssoResponse.message);
 						list.get(i).message=ssoResponse.message;
 						list.get(i).loop++;
-						if(ssoResponse.message=="µÇÂ¼³¬Ê±£¬ÇëÖØÐÂµÇÂ¼£¡")
+						if(ssoResponse.message.equals("µÇÂ¼³¬Ê±£¬ÇëÖØÐÂµÇÂ¼£¡"))
 						{
+							System.out.println("reinit");
 							reInit();
 						}
 					}

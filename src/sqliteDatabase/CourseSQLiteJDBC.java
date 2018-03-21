@@ -1,6 +1,10 @@
 package sqliteDatabase;
 
 import java.beans.Statement;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -14,7 +18,7 @@ import javax.naming.spi.DirStateFactory.Result;
 
 import com.google.gson.Gson;
 
-import requests.AddCourseClass;
+import requests.CourseList;
 import requests.Course;
 import start.staticValue;
 
@@ -34,7 +38,7 @@ public class CourseSQLiteJDBC {
 	}
 	public static void insert(List<Course>list,String table) throws SQLException
 	{
-		String sql="INSERT INTO "+table+" (课程名称,上课老师,上课时间,上课地点,容量,选上,本轮已选,选课方式,备注,学分,双语等级,add_id,addclass) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql="INSERT INTO "+table+" (课程名称,上课老师,上课时间,上课地点,容量,选上,本轮已选,选课方式,备注,学分,双语等级,add_id,addAction) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement preparedStatement=courseConnection.prepareStatement(sql);
 		for (Course course:list)
 		{
@@ -50,7 +54,7 @@ public class CourseSQLiteJDBC {
 			preparedStatement.setObject(10, course.学分);
 			preparedStatement.setObject(11, course.双语等级);
 			preparedStatement.setObject(12, course.add_id);
-			preparedStatement.setObject(13, course.addclass);
+			preparedStatement.setObject(13, course.addAction);
 			preparedStatement.execute();
 		}
 		return ;
@@ -101,13 +105,14 @@ public class CourseSQLiteJDBC {
 			course.学分=rs.getDouble("学分");
 			course.双语等级=rs.getString("双语等级");
 			course.add_id=rs.getString("add_id");
-			course.addclass=rs.getString("addclass");
+			course.addAction=rs.getString("addAction");
 			courseList.add(course);
 		}
 		return courseList;
 	}
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws Throwable {
 		//getTypeList();
+	
 	}
 
 }
