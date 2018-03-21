@@ -12,7 +12,6 @@ clone code & run Main.java
 
 ## 正在实现的功能
 
-* 利用SQLite实现信息存储
 * 排课及同时间课程替换功能
 
 ## 考虑添加
@@ -26,10 +25,13 @@ clone code & run Main.java
 
 * Gson
 * HttpClient
+* SQLite-JDBC
 
 ## API
+API部分依赖于[xkxx](https://github.com/Maymomo/xkxt)项目,将该项目部署到服务器上提供API接口，相应的配置在src/start/staticValue.java中
+
 ### 选课列表
-URL:http：//119.23.234.110:80/get_classes  
+URL:http：//119.23.234.110:80/get_classes
 method:POST  
 ```json
 data: {
@@ -55,38 +57,90 @@ data: {
 |tqxk|提前选课|
 |yytykxk|英语体育课选课信息|
 
+此API返回一个JSON数组串，其内容为对应class_type的所有课程,addAction为添加该课程的URL
+```json
+[
+	{
+		"classes": 
+		[
+			{
+			"addAction":"",
+			"add_id": "5E23835DA9654EA8E053FD02A8C05B48", 
+			"课程名称": "面向对象程序设计C", 
+			"上课老师": "王云华",
+			"上课时间": "周三第5-6节{第01-14周}", 
+			"上课地点": "新1-401", 
+			"容量": "130", 
+			"选上": "118", 
+			"本轮已选": "0", 
+			"选课方式": " 跨专业听课", 
+			"学分": "2.5", 
+			"备注": "NULL", 
+			"双语等级": "0 "
+			}, 
+			{
+			"addAction":"",
+			"add_id": "5E23835DA9654EA8E053FD02A8C05B48", 
+			"课程名称": "面向对象程序设计C", 
+			"上课老师": "王云华",
+			"上课时间": "周三第5-6节{第01-14周}", 
+			"上课地点": "新1-401", 
+			"容量": "130", 
+			"选上": "118", 
+			"本轮已选": "0", 
+			"选课方式": " 跨专业听课", 
+			"学分": "2.5", 
+			"备注": "NULL", 
+			"双语等级": "0 "
+			}
+		]
+	},
+	{
+		"classes": 
+		[
+			{
+			"addAction":"",
+			"add_id": "5E23835DA9654EA8E053FD02A8C05B48", 
+			"课程名称": "概论", 
+			"上课老师": "王云华",
+			"上课时间": "周三第5-6节{第01-14周}", 
+			"上课地点": "新1-401", 
+			"容量": "130", 
+			"选上": "118", 
+			"本轮已选": "0", 
+			"选课方式": " 跨专业听课", 
+			"学分": "2.5", 
+			"备注": "NULL", 
+			"双语等级": "0 "
+			}, 
+			{
+			"addAction":"",
+			"add_id": "5E23835DA9654EA8E053FD02A8C05B48", 
+			"课程名称": "概论", 
+			"上课老师": "王云华",
+			"上课时间": "周三第5-6节{第01-14周}", 
+			"上课地点": "新1-401", 
+			"容量": "130", 
+			"选上": "118", 
+			"本轮已选": "0", 
+			"选课方式": " 跨专业听课", 
+			"学分": "2.5", 
+			"备注": "NULL", 
+			"双语等级": "0 "
+			}
+		]
+	}
+]
+```
 
 ## 格式及一些约定
 ### 项目目录
 ```
 WHUT_Course
 |
-│  README.md
+│ README.md
 │
 └─src
-    ├─cache
-    │  │  timetable.json
-    │  │
-    │  └─course
-    │      ├─专业选课
-    │      │      4210004110.json
-    │      │      4220003110.json
-    │      │      map_file.json
-    │      │
-    │      ├─个性课程选课
-    │      │      5160003990.json
-    │      │      5160006990.json
-    │      │      map_file.json
-    │      │
-    │      ├─英语体育课选课
-    │      │      4210112160.json
-    │      │      4210114160.json
-    │      │      map_file.json
-    │      │
-    │      └─补修课选课
-    │              4120261140.json
-    │              4210003110.json
-    │              map_file.json
     │
     ├─client
     │      alipay.png
@@ -96,21 +150,28 @@ WHUT_Course
     │      SelectTress.java
     │      Timetable.java
     │
+    ├─database
+    │      Course.db
+    │
     ├─requests
-    │      AddCourseClass.java
     │      Course.java
-    │      CourseTypeList.java
-    │      ParseMapFile.java
+    │      CourseList.java
+    │      ParseCourseJson.java
     │      ParseTimetable.java
     │      Requests.java
     │      SelectedCourse.java
+    │      ServerRequests.java
     │      SSOResponse.java
     │      TimetableCourse.java
     │      User.java
     │
+    ├─sqliteDatabase
+    │      CourseSQLiteJDBC.java
+    │
     └─start
             Main.java
             staticValue.java
+
 ```
 ### config
 所有的路径设置默认是在src/start/staticValue.java中设置
@@ -134,6 +195,7 @@ WHUT_Course
 
 对于这些表均含有相同的表结构  
 ```sql
+DROP TABLE IF EXISTS "main"."zykxk";
 CREATE TABLE "zykxk" (
 "课程名称"  TEXT NOT NULL,
 "上课老师"  TEXT NOT NULL,
@@ -147,68 +209,12 @@ CREATE TABLE "zykxk" (
 "学分"  INTEGER NOT NULL,
 "双语等级"  TEXT,
 "add_id"  TEXT NOT NULL,
-"addclass"  TEXT NOT NULL,
+"addAction"  TEXT NOT NULL,
 PRIMARY KEY ("add_id" ASC)
 );
 ```
 
 ## 废弃待重构的内容
-### 选课缓存
-对于选课列表的缓存，存放于src/cache下，命名为course。course目录下是各大类别的选课列表目录，对于某一类别的目录，应该提供此格式的map_file.json文件。
-```json
-{
-	"大学物理B-大类必修已开课": "4050463130",
-	"电路原理B-大类必修未开课": "4110019110", 
-	"计算机基础与编程综合实验-大类必修已开课": "4120261140", 
-	"离散结构-大类必修已开课": "4120045110", 
-	"面向对象程序设计C-大类必修已开课": "4120048110", 
-	"线性代数-大类必修已开课": "4050229110", 
-	"体育3-体育必修未开课": "4210003110", 
-	"高级语言程序设计A-通识必修未开课": "4120020110", 
-	"计算机科学导论-通识必修未开课": "4120027110"
-}
-```
-即一个课程名称和课程代码的映射  
-
-对于map_file.json的同级目录，存放某一课程的所有可选课程信息，命名为课程代码.json。对于每个可选课程信息，格式为:
-```json
-{
-	"addclass": "bxkxkAdd.do?xnxq=2017-2018-2&kcdm=4120048110&jxjhh=20164123&addid={suid_obj}&keyinfo=10A8DE488D1D20FCE140EB22ED30AE1F", 
-	"classes": 
-	[
-		{
-		"add_id": "5E23835DA9654EA8E053FD02A8C05B48", 
-		"课程名称": "面向对象程序设计C", 
-		"上课老师": "王云华",
-		"上课时间": "周三第5-6节{第01-14周}", 
-		"上课地点": "新1-401", 
-		"容量": "130", 
-		"选上": "118", 
-		"本轮已选": "0", 
-		"选课方式": " 跨专业听课", 
-		"学分": "2.5", 
-		"备注": "NULL", 
-		"双语等级": "0 "
-		}, 
-		{
-		"add_id": "5E23835DA9654EA8E053FD02A8C05B48", 
-		"课程名称": "面向对象程序设计C", 
-		"上课老师": "王云华",
-		"上课时间": "周三第5-6节{第01-14周}", 
-		"上课地点": "新1-401", 
-		"容量": "130", 
-		"选上": "118", 
-		"本轮已选": "0", 
-		"选课方式": " 跨专业听课", 
-		"学分": "2.5", 
-		"备注": "NULL", 
-		"双语等级": "0 "
-		}
-	]
-}
-```
-其中addclass为添加课程的url,addid参数需替换为对应的addid。  
-
 ### 课表缓存
 对于每一门课程 采用以下格式
 ```json
